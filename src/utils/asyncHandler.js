@@ -1,10 +1,15 @@
+// A utility function to handle async errors in request handlers
 const asyncHandler = (requestHandler) => {
     return (req, res, next) => {
-        Promise.resolve(requestHandler(req, res, next)).catch((err)=>next(err));
-    }
+        // Wrap the handler in a resolved promise to catch errors
+        Promise.resolve(requestHandler(req, res, next))
+            .catch((err) => next(err)); // Pass any errors to the next middleware (error handler)
+    };
 };
 
+// Export the asyncHandler for use in other modules
 export default asyncHandler;
+
 
 
 
